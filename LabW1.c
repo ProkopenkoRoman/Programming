@@ -11,15 +11,16 @@ void scopy(char *s1, char *s2);
 void suntok(char *s, char delim, char *ptr[], int cnt);
 
 int main() {
-	int i, j, k;
+	int i, j, k, r;
 	//char ch[260]; // vremenniy massiv dlya dannih
 	char delim; // razdelitel'
 	char *ptr[10];
+	char tmp;
 	
 	char somedir[] = "~/";
 	char username[] = "John";
-	char dir[] = "o/";
-	char paths[] = "~/games/packman.cpp+~alex/d*cs+~/study/Prog/lab4.c+/us*r/bin/gcc+~/lab/pr*ject1";
+	char dir[] = "/home/stud/";
+	char paths[260] = "~/games/packman.cpp+~alex/d*cs+~/study/Prog/lab4.c+/us*r/bin/gcc+~/lab/pr*ject1";
 	
     printf("Vvedite razdlitel':\n");
       scanf("%c",&delim); // razdelitel'
@@ -33,12 +34,15 @@ int main() {
        char *dir = (int *)malloc(slen(ch)*sizeof(int)); // imya domashnego kataloga
         for (i=0; i<slen(ch); i++)
          dir[i]=ch[i];
-    printf("Vvedite puti cherez razdeliteli:\n");
+    printf("Vvedite pu0ti cherez razdeliteli:\n");
       scanf("%s", &ch);
        char *paths = (int *)malloc(slen(ch)*sizeof(int)); // vhodnaya stroka s putyami
         for (i=0; i<slen(ch); i++)
          paths[i]=ch[i]; */
-    
+
+	r = slen(dir) - slen(somedir);
+	printf("Sdvig na %d\n", r);
+      	
 	i = stok(paths, delim, ptr);
 	for(j = 0;  j < i; j++) {
 		sspn(ptr[j]);
@@ -51,6 +55,10 @@ int main() {
 		}
 	}
 	
+	// sdvig massiva
+	for (j = 260 - r; j < 0; j--)
+		paths[j] = paths[j + r];
+		
 	suntok(paths, delim, ptr, i);
 	printf("New paths: %s\n", paths);
 	
