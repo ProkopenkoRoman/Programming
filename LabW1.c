@@ -11,7 +11,7 @@ void scopy(char *s1, char *s2);
 void suntok(char *s, char delim, char *ptr[], int cnt);
 
 int main() {
-	int i, j, k, r;
+	int i, j, k, r, s1, index, delta, n;
 	//char ch[260]; // vremenniy massiv dlya dannih
 	char delim; // razdelitel'
 	char *ptr[10];
@@ -19,8 +19,11 @@ int main() {
 	
 	char somedir[] = "~/";
 	char username[] = "John";
-	char dir[] = "/home/stud/";
+	char dir[] = "ooo/";
 	char paths[260] = "~/games/packman.cpp+~alex/d*cs+~/study/Prog/lab4.c+/us*r/bin/gcc+~/lab/pr*ject1";
+	char *suf = paths;
+	delta = slen(somedir)-slen(dir);
+	s1 = slen(paths);
 	
     printf("Vvedite razdlitel':\n");
       scanf("%c",&delim); // razdelitel'
@@ -40,8 +43,8 @@ int main() {
         for (i=0; i<slen(ch); i++)
          paths[i]=ch[i]; */
 
-	r = slen(dir) - slen(somedir);
-	printf("Sdvig na %d\n", r);
+	//r = slen(dir) - slen(somedir);
+	//printf("Sdvig na %d\n", r);
       	
 	i = stok(paths, delim, ptr);
 	for(j = 0;  j < i; j++) {
@@ -51,13 +54,21 @@ int main() {
 	for(j = 0;  j < i; j++) {
 		k = sequal(ptr[j], somedir);
 		if(k == 1){
-			scopy(dir, ptr[j]);
-		}
+			index = ptr[j] - suf;
+			
+			if (delta < 0) {
+				for (n = s1 - delta; n > index + delta ; n--) {
+					paths[n - delta] = paths[n];
+				}
+				for (n = j; n < i - 1; n++) {
+			
+				ptr[n + 1] = ptr[n + 1] - delta;
+				}
+			}
+				scopy(dir, ptr[j]);
+			
+		}		
 	}
-	
-	// sdvig massiva
-	for (j = 260 - r; j < 0; j--)
-		paths[j] = paths[j + r];
 		
 	suntok(paths, delim, ptr, i);
 	printf("New paths: %s\n", paths);
