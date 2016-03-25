@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <locale.h>
 
+//void increm(char *s, int k);
 void sspn(char *s);
 int slen(char *s);
 int stok(char *s, char delim, char *ptr[]);	
@@ -19,10 +20,10 @@ int main() {
 	char str[260] = "/home/qwert/9/openmpi/165/lib/OpenMPI/mca_btl_tcp.so";
 	//char *suf = str;
 
-	//printf("Введите строку, соответствующаую абсолютному пути:\n");
+	//printf("Ââåäèòå ñòðîêó, ñîîòâåòñòâóþùàóþ àáñîëþòíîìó ïóòè:\n");
 	//scanf("%s\n", &str);
 	
-	printf("Входная строка: %s\n\n", str);
+	printf("Âõîäíàÿ ñòðîêà: %s\n\n", str);
 	
 	first_ch = str[0];
 	if (first_ch == '/') {
@@ -38,34 +39,39 @@ int main() {
 	if (f == 0)
 		printf("Error...\n");	
 	
-	printf("Разделитель: %c\n", delim);
+	printf("Ðàçäåëèòåëü: %c\n", delim);
       	
 	i = stok(str, delim, ptr);
-	printf("Количество каталогов с учетом конечного файла: %d\n", i);
+	printf("Êîëè÷åñòâî êàòàëîãîâ ñ ó÷åòîì êîíå÷íîãî ôàéëà: %d\n", i);
 	
-	printf("Конечный файл: %s\n", ptr[i-1]);
+	printf("Êîíå÷íûé ôàéë: %s\n", ptr[i-1]);
 	
 	s = slen(ptr[i-1]);
-	printf("Длина конечного файла: %d\n", s);
+	printf("Äëèíà êîíå÷íîãî ôàéëà: %d\n", s);
 	
 	for(k = 0; k < i; k++) {
 		if (atoi(ptr[k])) {
 			j = atoi(ptr[k])+1;
-			printf("Числовой каталог увеличенный на 1: <%d каталог> = %d\n", k, j);
+			printf("×èñëîâîé êàòàëîã óâåëè÷åííûé íà 1: <%d êàòàëîã> = %d\n", k, j);
+			//increm(ptr[k], j);
 		}
 	}
 	
-	printf("Обновленная строка: %s\n", str);
+	suntok(str, delim, ptr, i);
+	printf("Îáíîâëåííàÿ ñòðîêà: %s\n", str);
 	
- /*	for(j = 0;  j < i; j++) {
+ /*	for(j = 0;  j < i; j++)
 		sspn(ptr[j]);
-	} */
-		
-	//suntok(str, delim, ptr, i);
-	//printf("New paths: %s\n", str);
-	
+ */
     return 0;
 }
+
+// zamena stroki
+/*void increm(char *s, int k) {
+    int i;
+    for (i = 0; s[i] != '\0'; i++)
+    itoa(k, s);
+}*/
 
 // dlina stroki
 int slen(char *s) {
