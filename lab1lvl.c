@@ -79,12 +79,14 @@ int main() {
 // sdvig stroki i ukazateley
 void sdvig(char *s, int j, int i, char delim, char *ptr[]) {
 	int m, count = 0;
+	// sdvig stroki
 	for (m = slen(s); count < i - j; m--) {
 		if (s[m] == delim)
 			count++;
 		s[m + 1] = s[m];	
 	}
 	
+	// sdvig ukazateley
 	for (m = i - j; m < i; m++) {
 		ptr[m] = ptr[m] + 1;
 	}
@@ -165,8 +167,10 @@ int schr(char *s, char delim) {
 void sspn(char *s) {
 	int i;
 	for(i = 0;  s[i] != '\0'; i++){
-		if (s[i] ==  '*' || s[i] ==  '&' || s[i] ==  '?' || s[i] ==  '|' || s[i] ==  '"' || s[i] ==  '<' || s[i] ==  '>' || s[i] ==  ';')
-			fprintf(stderr, "Íåäîïóñòèìûé ñèìâîë <%c> íà ïîçèöèè <%d>;\n", s[i], i); // nedopustimiy simvol na pozicii
+		if (s[i] ==  '*' || s[i] ==  '&' || s[i] ==  '?' || s[i] ==  '|' || s[i] ==  '"' || s[i] ==  '<' || s[i] ==  '>' || s[i] ==  ';') {
+			fprintf(stderr, "Íåäîïóñòèìûé ñèìâîë <%c> íà ïîçèöèè <%d>;", s[i], i); // nedopustimiy simvol na pozicii
+			printf("\n");
+		}
 	}
 }
 
