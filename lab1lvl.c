@@ -13,24 +13,53 @@ int schr(char *s, char delim);
 int sequal(char *s1, char *s2);
 void scopy(char *s1, char *s2);
 void suntok(char *s, char delim, char *ptr[], int cnt);
+void input();
+void check();
+void process();
+void output();
+
+	int i, j, k, s, f=0;
+	char *ptr[20];
+	char first_ch, delim;
+	//char str[261] = "CA:\\home\\qwert\\9\\openmpi\\165\\lib\OpenMPI\\mca_btl_tcp.so"; // windows
+	char str[261] = "/home/qwert/9/openmpi/165/lib/OpenMPI/mca_btl_tcp.so"; // linux
+	//char str[261];
 
 int main() {
 	setlocale(LC_ALL, "Russian");
 	
-	int i, j, k, s, f=0;
-	char *ptr[20];
-	char first_ch, delim;
-	//char str[261] = "CA:\\home\\qwert\\8\\openmpi\\165\\lib\OpenMPI\\mca_btl_tcp.so"; // windows
-	char str[261] = "/home/qwert/9/openmpi/165/lib/OpenMPI/mca_btl_tcp.so"; // linux
-	//char *suf = str;
+	input(); 
+	check();
+	process();
+	suntok(str, delim, ptr, i);
+	output();
+    return 0;
+}
 
-	//printf("Ââåäèòå ñòðîêó, ñîîòâåòñòâóþùóþ àáñîëþòíîìó ïóòè:\n"); // vvedite stroku, sootvetstvuyushuyu absolutnomu puti
-	//scanf("%s\n", &str);
+void input() {
+	int i;
+	//char ch[500];
 	
-	printf("Âõîäíàÿ ñòðîêà: %s\n", str); // vhodnaya stroka
+	printf("Введите строку, соответствующую абсолютному пути:\n"); // vvedite stroku, sootvetstvuyushuyu absolutnomu puti	
+	/*	scanf("%s", &ch);
+	if(slen(ch) > 261) {
+	 	printf("Превышение допустимой длины пути...");
+	 	return 1;
+	}
+	else {
+		for (i = 0; i < slen(ch); i++)
+         	str[i] = ch[i]; 
+		printf("Входная строка: %s\n\n", str); // vhodnaya stroka
+	} */
+	printf("Входная строка: %s\n\n", str); // vhodnaya stroka
+}
+
+void check() {
 	sspn(str); // proverka na nedopustimie simvoli
 	printf("\n");
-	
+}
+
+void process() {
 	////////////////////////////////////// OPREDELENIE OS //////////////////////////////////////
 	first_ch = str[0];
 	if (first_ch == '/') {
@@ -44,36 +73,35 @@ int main() {
 		f=1;
 	}
 	if (f == 0) {
-		printf("Îøèáî÷íûé ïóòü...\n"); // oshibo4niy put'
+		printf("Ошибочный путь...\n"); // oshibo4niy put'
 		return 1;
 	}
 	
-	printf("Ðàçäåëèòåëü: %c\n", delim); // razdelitel'
+	printf("Разделитель: %c\n", delim); // razdelitel'
       	
 	i = stok(str, delim, ptr);
-	printf("Êîëè÷åñòâî êàòàëîãîâ ñ ó÷åòîì êîíå÷íîãî ôàéëà: %d\n", i); // koli4estvo katalogov s u4etom kone4nogo fayla
+	printf("Количество каталогов с учетом конечного файла: %d\n", i); // koli4estvo katalogov s u4etom kone4nogo fayla
 	
-	printf("Êîíå÷íûé ôàéë: %s\n", ptr[i-1]); // kone4niy fayl
+	printf("Конечный файл: %s\n", ptr[i-1]); // kone4niy fayl
 	
 	s = slen(ptr[i-1]);
-	printf("Äëèíà êîíå÷íîãî ôàéëà: %d\n\n", s); // dlina kone4nogo fayla
+	printf("Длина конечного файла: %d\n\n", s); // dlina kone4nogo fayla
 	
 	for(k = 0; k < i; k++) {
 		if (atoi(ptr[k])) {
 			j = atoi(ptr[k])+1;
-			printf("×èñëîâîé êàòàëîã, êîòîðûé íóæíî óâåëè÷èòü íà 1: <%d êàòàëîã> = %d\n", k+1, j); // 4islovoy katalog, kotoriy nuzhno uveli4it' na 1
+			printf("Числовой каталог, который нужно увеличить на 1: <%d каталог> = %d\n", k+1, j); // 4islovoy katalog, kotoriy nuzhno uveli4it' na 1
 			if (((j - 1) % 1000 == 999 || (j - 1) % 1000 == 99 || (j - 1) % 1000 == 9) && ((j - 1) % 100 == 99 || (j - 1) % 100 == 9) && ((j - 1) % 10 == 9)) {
-				printf("Íóæíî ñâäèíóòü ñòðîêó íà 1 âïðàâî, íà÷èíàÿ ñ %d êàòàëîãà\n", k+1); // nuzhno sdvinut' stroku na 1 vpravo, na4inaya s kataloga
+				printf("Нужно свдинуть строку на 1 вправо, начиная с %d каталога\n", k+1); // nuzhno sdvinut' stroku na 1 vpravo, na4inaya s kataloga
 			//	sdvig(str, k + 1, i, delim, ptr);
 			}
 			change(ptr[k], j);
 		}
 	}
-	
-	suntok(str, delim, ptr, i);
-	printf("\nÎáíîâëåííàÿ ñòðîêà: %s\n", str); // obnovlennaya stroka
-	
-    return 0;
+}
+
+void output() {
+	printf("\nОбновленная строка: %s", str); // obnovlennaya stroka
 }
 
 // sdvig stroki i ukazateley
@@ -85,7 +113,6 @@ void sdvig(char *s, int j, int i, char delim, char *ptr[]) {
 			count++;
 		s[m + 1] = s[m];	
 	}
-	
 	// sdvig ukazateley
 	for (m = i - j; m < i; m++) {
 		ptr[m] = ptr[m] + 1;
@@ -98,8 +125,7 @@ char* c;
     c = (char *)malloc(10 * sizeof(char)); 
     int i, v = 0; // koli4estvo cifr v 4isle n
     // razbiaem na otdel'nie simvoli 4islo n
-    while (k > 9)
-    {
+    while (k > 9) {
         c[v++] = (k % 10) + '0';
         k = k / 10;
     }
@@ -107,8 +133,7 @@ char* c;
     c[v] = '\0';
     char t;
     // invertiruem massiv simvolov
-    for (i = 0; i < v / 2; i++)
-    {
+    for (i = 0; i < v / 2; i++) {
         t = c[i];
         c[i] = c[v - 1 - i];
         c[v - 1 - i] = t;
@@ -166,23 +191,21 @@ int schr(char *s, char delim) {
 // proverka stroki na nedopustimie simvoli
 void sspn(char *s) {
 	int i;
-	for(i = 0;  s[i] != '\0'; i++){
+	for(i = 0;  s[i] != '\0'; i++)
 		if (s[i] ==  '*' || s[i] ==  '&' || s[i] ==  '?' || s[i] ==  '|' || s[i] ==  '"' || s[i] ==  '<' || s[i] ==  '>' || s[i] ==  ';') {
-			fprintf(stderr, "Íåäîïóñòèìûé ñèìâîë <%c> íà ïîçèöèè <%d>;", s[i], i); // nedopustimiy simvol na pozicii
+			fprintf(stderr, "Недопустимый символ <%c> на позиции <%d>;", s[i], i); // nedopustimiy simvol na pozicii
 			printf("\n");
 		}
-	}
 }
 
 // sravnenie strok
 int sequal(char *s1, char *s2) {
 	int i, out = 1;
-	for(i = 0; out && (s1[i] != '\0' && s2[i] != '\0'); i++){
+	for(i = 0; out && (s1[i] != '\0' && s2[i] != '\0'); i++)
 		if (s1[i] != s2[i]){
 			out = 0;
 			return out;
 		}
-	}
 	return out;
 }
 
@@ -191,13 +214,11 @@ void scopy(char *s1, char *s2) {
 	int i;
 	for(i = 0; (s1[i] != '\0' && s2[i] != '\0'); i++)
 		s2[i] = s1[i];
-	
 }
 
 // sobiranie stroki
 void suntok(char *s, char delim, char *ptr[], int cnt) {
 	int i;
-	for(i = 1; i < cnt; i++){
+	for(i = 1; i < cnt; i++)
 		*(ptr[i] - 1) = delim;
-	}
 }
