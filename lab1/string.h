@@ -1,11 +1,12 @@
 #ifndef STRING   
 #define STRING   
  
- 	int i, j, k, s, f;
-	char *ptr[20];
-	char first_ch, delim;
-	char str[261];
+int i, j, k, s, f;
+char *ptr[20];
+char first_ch, delim;
+char str[261];
 	
+int isCase(char *s);	
 void sdvig(char *s, int j, int i, char delim, char *ptr[]);
 int isLowCase(char ch);
 int isHighCase(char ch);
