@@ -21,9 +21,9 @@ void output();
 	int i, j, k, s, f=0;
 	char *ptr[20];
 	char first_ch, delim;
-	//char str[261] = "CA:\\home\\qwert\\9\\openmpi\\165\\lib\OpenMPI\\mca_btl_tcp.so"; // windows
-	char str[261] = "/home/qwert/9/openmpi/165/lib/OpenMPI/mca_btl_tcp.so"; // linux
-	//char str[261];
+	//char str[261] = "CA:\\home\\qwert\\999\\openmpi\\165\\lib\OpenMPI\\mca_btl_tcp.so"; // windows
+	//char str[261] = "/home/qwert/9/openmpi/165/lib/OpenMPI/mca_btl_tcp.so"; // linux
+	char str[261];
 
 int main() {
 	setlocale(LC_ALL, "Russian");
@@ -38,19 +38,19 @@ int main() {
 
 void input() {
 	int i;
-	//char ch[500];
+	char ch[500];
 	
 	printf("Введите строку, соответствующую абсолютному пути:\n"); // vvedite stroku, sootvetstvuyushuyu absolutnomu puti	
-	/*	scanf("%s", &ch);
+		scanf("%s", &ch);
 	if(slen(ch) > 261) {
 	 	printf("Превышение допустимой длины пути...");
-	 	return 1;
+	 	exit(1);
 	}
 	else {
 		for (i = 0; i < slen(ch); i++)
          	str[i] = ch[i]; 
 		printf("Входная строка: %s\n\n", str); // vhodnaya stroka
-	} */
+	} 
 	printf("Входная строка: %s\n\n", str); // vhodnaya stroka
 }
 
@@ -74,7 +74,7 @@ void process() {
 	}
 	if (f == 0) {
 		printf("Ошибочный путь...\n"); // oshibo4niy put'
-		return 1;
+		exit(1);
 	}
 	
 	printf("Разделитель: %c\n", delim); // razdelitel'
@@ -93,7 +93,7 @@ void process() {
 			printf("Числовой каталог, который нужно увеличить на 1: <%d каталог> = %d\n", k+1, j); // 4islovoy katalog, kotoriy nuzhno uveli4it' na 1
 			if (((j - 1) % 1000 == 999 || (j - 1) % 1000 == 99 || (j - 1) % 1000 == 9) && ((j - 1) % 100 == 99 || (j - 1) % 100 == 9) && ((j - 1) % 10 == 9)) {
 				printf("Нужно свдинуть строку на 1 вправо, начиная с %d каталога\n", k+1); // nuzhno sdvinut' stroku na 1 vpravo, na4inaya s kataloga
-			//	sdvig(str, k + 1, i, delim, ptr);
+				sdvig(str, k + 1, i, delim, ptr);
 			}
 			change(ptr[k], j);
 		}
@@ -106,17 +106,17 @@ void output() {
 
 // sdvig stroki i ukazateley
 void sdvig(char *s, int j, int i, char delim, char *ptr[]) {
-	int m, count = 0;
+	char *suf = s;
+	int idx = ptr[j] - suf;
+	int m;
+	
 	// sdvig stroki
-	for (m = slen(s); count < i - j; m--) {
-		if (s[m] == delim)
-			count++;
-		s[m + 1] = s[m];	
-	}
+	for (m = 261; m > idx-1; m--) 
+		s[m + 1] = s[m];
+	
 	// sdvig ukazateley
-	for (m = i - j; m < i; m++) {
+	for (m = j; m < i; m++) 
 		ptr[m] = ptr[m] + 1;
-	}
 }
 
 // zamena kataloga <n> na <n+1>
