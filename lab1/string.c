@@ -42,6 +42,17 @@ char* c;
     free(c);
 }
 
+// proverka stroki na nalichie bukv
+int isCase(char *s) {
+	int i, f = 0;
+	for (i = 0; i < slen(s); i++)
+		if (isHighCase(s[i]) == 1 || isLowCase(s[i]) == 1)
+			f = 1;
+	if (f == 1)		
+		return 1;
+	return 0;		
+}
+
 // prinadlezhnost' k latinskim bukvam nizhnego registra
 int isLowCase(char ch) {
 if( ch >= 'a' && ch <= 'z')
@@ -90,7 +101,7 @@ int schr(char *s, char delim) {
 void sspn(char *s) {
 	int i;
 	for(i = 0;  s[i] != '\0'; i++)
-		if (s[i] == '*' || s[i] == '&' || s[i] == '?' || s[i] == '|' || s[i] == '"' || s[i] == '<' || s[i] == '>' || s[i] == ';') {
+		if (s[i] == '*' || s[i] == '&' || s[i] == '?' || s[i] == '|' || s[i] == '"' || s[i] == '<' || s[i] == '>' || s[i] == ';' || s[i] == ',') {
 			fprintf(stderr, "Недопустимый символ <%c> на позиции <%d>;", s[i], i); // nedopustimiy simvol na pozicii
 			printf("\n");
 		}
