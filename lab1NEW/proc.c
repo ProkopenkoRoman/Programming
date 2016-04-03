@@ -30,12 +30,12 @@ void process(char *s) {
 	
 	////////////////////////////////////// OPREDELENIE OS //////////////////////////////////////
 	first_ch = s[0];
-	if (first_ch == '/' && schr(s, '\\') < 0) {
+	if (first_ch == '/' && schr(s, '\\') < 0 && schr(s, ':') < 0) {
 		printf("OS: Linux\n");
 		delim = '/';
 		f=1;
 	}
-	if ((isLowCase(first_ch) == 1 || isHighCase(first_ch) == 1) && schr(s, '/') < 0 && schr(s, ':') > 0 && schr(s, ':') < 3 && schr(s, '\\') > schr(s, ':')) {
+	if ((isLowCase(first_ch) == 1 || isHighCase(first_ch) == 1) && schr(s, '/') < 0 && schr(s, ':') > 0 && schr(s, ':') < 3 && schr(s, '\\') > schr(s, ':') && schr(s, '\\') == schr(s, ':') + 1) {
 		printf("OS: Windows\n");
 		delim = '\\';
 		f=1;
