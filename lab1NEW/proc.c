@@ -2,7 +2,6 @@
 #include <stdlib.h>
 #include "string.h"
 #include "proc.h"
-#include <conio.h>
 
 void input(char *s) {
 	int i = 0;
