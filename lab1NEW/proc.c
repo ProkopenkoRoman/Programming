@@ -2,13 +2,21 @@
 #include <stdlib.h>
 #include "string.h"
 #include "proc.h"
+#include <conio.h>
 
 void input(char *s) {
-	int i;
-	char ch[500];
-	
+	int i = 0;
+	char ch[262];
 	printf("Введите строку, соответствующую абсолютному пути:\n"); // vvedite stroku, sootvetstvuyushuyu absolutnomu puti	
-		scanf("%s", &ch);
+//		scanf("%s", &ch);
+
+/////// posimvol'no s4itivaem stroku(pomoglo ispravit' oshibku, kogda stroka posle probela ne s4itivalas' ///////
+	do {
+		scanf("%c",&ch[i]); 
+		i++;
+	} while(ch[i-1] != '\n');
+	s[i-1] = '\0'; 
+	
 	if(slen(ch) > 261) {
 	 	printf("Превышение допустимой длины пути..."); // previshenie dopustimoy dlini puti
 	 	exit(1);
