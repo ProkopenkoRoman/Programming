@@ -77,12 +77,13 @@ void analiz(char *str) {
 		FILE *cron, *end;
 	cron = fopen("crontab", "a+");
 	//проверка на количество полей в строке
-	if(i !=7) {
+	if(i != 7) {
 		end = fopen("end", "a+");
 		//fread(tmp, 1024, 1, cron);
 		fprintf(end," %s", "pidr");
 		fclose(end);  
-	} else {//проверка каждого поля и заполнение структуры
+	} 
+/*	else {//проверка каждого поля и заполнение структуры
 		
 		for(i = 0; i <= 5; i++){
 			for (j = 0; ptr[j] != '\0'; j++){
@@ -97,6 +98,6 @@ void analiz(char *str) {
 	for(j = 0; j <= 7; j++){
 		printf("id = %d\n", id[i]);
 		}
-	
+	*/
 	fclose(cron);  
 }
