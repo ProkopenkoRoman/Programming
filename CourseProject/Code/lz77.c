@@ -15,7 +15,7 @@ void GetInfo(int* array, int* M, int* N) {
 // value - устанавливаемое значение
 // len	 - и его длина в битах
 int SetBits(int *array, int offset, unsigned int value, int value_len) {
-
+ 
 	int i, d ;
 	i = offset / 32;	//индекс для массива из int
 	d = offset % 32;	//находящийся остаток в битах
