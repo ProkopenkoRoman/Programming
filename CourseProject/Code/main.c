@@ -20,10 +20,10 @@ int main (int argc, char ** argv)
 		}
 		
 		// взять имена файлов
-		strcpy(&finname , argv[2] );
-		printf("Source File : %s\n", finname );
-		strcpy(&foutname , argv[3] );
-		printf("Result File : %s\n", foutname );
+		strcpy(&finname , argv[2]);
+		printf("Source File : %s\n", finname);
+		strcpy(&foutname , argv[3]);
+		printf("Result File : %s\n", foutname);
 	}
 	// иначе задаем через меню
 	else
