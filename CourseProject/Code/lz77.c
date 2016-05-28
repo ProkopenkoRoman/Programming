@@ -20,7 +20,7 @@ int SetBits(int *array, int offset, unsigned int value, int value_len) {
 	i = offset / 32;	//индекс для массива из int
 	d = offset % 32;	//находящийся остаток в битах
 	// обнулить все биты числа выходящие за длину битовой последовательности 
-	value &=  (int) pow(2.0, (float)value_len) - 1;		
+	value &= (int) pow(2.0, (float)value_len) - 1;		
 	// добавить в выходной массив
 	// сдвинув влево на остаток в битах находящийся уже в массиве
 	array[i] += value << d; 
